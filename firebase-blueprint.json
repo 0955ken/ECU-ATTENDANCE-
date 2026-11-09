@@ -1,0 +1,45 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Authenticated administrator profile and university linkage",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "role": { "type": "string" },
+        "university": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "role"]
+    },
+    "CloudBackup": {
+      "title": "CloudBackup",
+      "description": "Encrypted university attendance database snapshot uploaded to Firestore cloud",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "studentCount": { "type": "number" },
+        "attendanceCount": { "type": "number" },
+        "academicYear": { "type": "string" },
+        "backupPayload": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "title", "studentCount"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "Root administrator user document"
+    },
+    "/users/{userId}/cloud_backups/{backupId}": {
+      "schema": "CloudBackup",
+      "description": "Cloud backups of ECU attendance records"
+    }
+  }
+}
